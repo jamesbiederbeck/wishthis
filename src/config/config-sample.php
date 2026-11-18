@@ -9,6 +9,13 @@
 namespace wishthis;
 
 /**
+ * Public URL prefix (no trailing slash), e.g. '/wishthis'.
+ * WISHTHIS_BASE_PATH can also be set on the PHP/container environment, including
+ * before installation. Leave this undefined when using that environment variable.
+ */
+// define('BASE_PATH', '/wishthis');
+
+/**
  * Database
  *
  * Used to connect to your MySQL database.

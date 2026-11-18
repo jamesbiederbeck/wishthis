@@ -22,24 +22,24 @@ class Page
     /**
      * Static
      */
-    public const PAGE_API             = '/index.php?page=api';
-    public const PAGE_BLOG            = '/index.php?page=blog';
-    public const PAGE_CHANGELOG       = '/index.php?page=changelog';
-    public const PAGE_HOME            = '/index.php?page=home';
-    public const PAGE_INSTALL         = '/index.php?page=install';
-    public const PAGE_LOGIN_AS        = '/index.php?page=login-as';
-    public const PAGE_LOGIN           = '/index.php?page=login';
-    public const PAGE_LOGOUT          = '/index.php?page=logout';
-    public const PAGE_MAINTENANCE     = '/index.php?page=maintenance';
-    public const PAGE_POST            = '/index.php?page=post';
-    public const PAGE_POWER           = '/index.php?page=power';
-    public const PAGE_PROFILE         = '/index.php?page=profile';
-    public const PAGE_REGISTER        = '/index.php?page=register';
-    public const PAGE_SETTINGS        = '/index.php?page=settings';
-    public const PAGE_UPDATE          = '/index.php?page=update';
-    public const PAGE_WISHLIST        = '/index.php?page=wishlist';
-    public const PAGE_WISHLISTS_SAVED = '/index.php?page=wishlists-saved';
-    public const PAGE_WISHLISTS       = '/index.php?page=wishlists';
+    public const PAGE_API             = BASE_PATH . '/index.php?page=api';
+    public const PAGE_BLOG            = BASE_PATH . '/index.php?page=blog';
+    public const PAGE_CHANGELOG       = BASE_PATH . '/index.php?page=changelog';
+    public const PAGE_HOME            = BASE_PATH . '/index.php?page=home';
+    public const PAGE_INSTALL         = BASE_PATH . '/index.php?page=install';
+    public const PAGE_LOGIN_AS        = BASE_PATH . '/index.php?page=login-as';
+    public const PAGE_LOGIN           = BASE_PATH . '/index.php?page=login';
+    public const PAGE_LOGOUT          = BASE_PATH . '/index.php?page=logout';
+    public const PAGE_MAINTENANCE     = BASE_PATH . '/index.php?page=maintenance';
+    public const PAGE_POST            = BASE_PATH . '/index.php?page=post';
+    public const PAGE_POWER           = BASE_PATH . '/index.php?page=power';
+    public const PAGE_PROFILE         = BASE_PATH . '/index.php?page=profile';
+    public const PAGE_REGISTER        = BASE_PATH . '/index.php?page=register';
+    public const PAGE_SETTINGS        = BASE_PATH . '/index.php?page=settings';
+    public const PAGE_UPDATE          = BASE_PATH . '/index.php?page=update';
+    public const PAGE_WISHLIST        = BASE_PATH . '/index.php?page=wishlist';
+    public const PAGE_WISHLISTS_SAVED = BASE_PATH . '/index.php?page=wishlists-saved';
+    public const PAGE_WISHLISTS       = BASE_PATH . '/index.php?page=wishlists';
 
     public static function message(string $content = '', string $header = '', string $type = '', string $class = ''): string
     {
@@ -139,7 +139,7 @@ class Page
 
         $this->name         = pathinfo($filepath, PATHINFO_FILENAME);
         $this->description  = __('wishthis is a simple, intuitive and modern wishlist platform to create, manage and view your wishes for any kind of occasion.');
-        $this->link_preview = 'https://' . $_SERVER['HTTP_HOST'] . '/src/assets/img/link-previews/default.png';
+        $this->link_preview = 'https://' . $_SERVER['HTTP_HOST'] . BASE_PATH . '/src/assets/img/link-previews/default.png';
 
         $timeAnHourAgo = time() - 3600;
         $timezone      = date('T', $timeAnHourAgo);
@@ -242,7 +242,7 @@ class Page
          * Link preview
          */
         $screenshot_filepath = ROOT . '/src/assets/img/screenshots/' . $this->name . '.png';
-        $screenshot_url      = 'https://' . $_SERVER['HTTP_HOST'] . '/src/assets/img/screenshots/' . $this->name . '.png';
+        $screenshot_url      = 'https://' . $_SERVER['HTTP_HOST'] . BASE_PATH . '/src/assets/img/screenshots/' . $this->name . '.png';
 
         if (file_exists($screenshot_filepath)) {
             $this->link_preview = $screenshot_url;
@@ -319,29 +319,29 @@ class Page
                 <?php } ?>
             <?php } ?>
 
-            <link rel="manifest" href="/manifest.json" />
+            <link rel="manifest" href="<?= BASE_PATH ?>/manifest.json" />
             <?php
             if (defined('CHANNELS') && is_array(CHANNELS)) {
                 $channels = CHANNELS;
                 $stable   = reset($channels);
                 ?>
-                <link rel="canonical" href="https://<?= $stable['host'] . $_SERVER['REQUEST_URI'] ?>" />
+                <link rel="canonical" href="https://<?= $stable['host'] . \wishthis_url($_SERVER['REQUEST_URI']) ?>" />
                 <?php
             } else {
                 ?>
-                <link rel="canonical" href="https://<?= $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>" />
+                <link rel="canonical" href="https://<?= $_SERVER['HTTP_HOST'] . \wishthis_url($_SERVER['REQUEST_URI']) ?>" />
                 <?php
             }
             ?>
 
-            <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/img/favicon/apple-touch-icon.png" />
-            <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/img/favicon/favicon-32x32.png" />
-            <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/img/favicon/favicon-16x16.png" />
-            <link rel="mask-icon" href="/src/assets/img/favicon/safari-pinned-tab.svg" color="#5829bb" />
-            <link rel="shortcut icon" href="/src/assets/img/favicon/favicon.ico" />
+            <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_PATH ?>/src/assets/img/favicon/apple-touch-icon.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="<?= BASE_PATH ?>/src/assets/img/favicon/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_PATH ?>/src/assets/img/favicon/favicon-16x16.png" />
+            <link rel="mask-icon" href="<?= BASE_PATH ?>/src/assets/img/favicon/safari-pinned-tab.svg" color="#5829bb" />
+            <link rel="shortcut icon" href="<?= BASE_PATH ?>/src/assets/img/favicon/favicon.ico" />
 
             <meta name="msapplication-TileColor" content="#ffffff" />
-            <meta name="msapplication-config" content="/src/assets/img/favicon/browserconfig.xml" />
+            <meta name="msapplication-config" content="<?= BASE_PATH ?>/src/assets/img/favicon/browserconfig.xml" />
             <meta name="theme-color" content="#f4f4f4" />
 
             <?php
@@ -359,7 +359,7 @@ class Page
                 ?>
                 <link rel="stylesheet"
                       type="text/css"
-                      href="/<?= $stylesheet_filepath ?>?v=<?= $hash ?>"
+                      href="<?= BASE_PATH ?>/<?= $stylesheet_filepath ?>?v=<?= $hash ?>"
                 />
                 <?php
             }
@@ -382,7 +382,7 @@ class Page
                 ?>
                 <script defer
                         type="text/javascript"
-                        src="/<?= $script_page ?>?v=<?= $hash ?>">
+                        src="<?= BASE_PATH ?>/<?= $script_page ?>?v=<?= $hash ?>">
                 </script>
                 <?php
             }
@@ -773,7 +773,7 @@ class Page
                     </div>
 
                     <form method="dialog" class="actions">
-                        <a class="ui primary button" href="/"><?= __('Reload page') ?></a>
+                        <a class="ui primary button" href="<?= BASE_PATH ?>/"><?= __('Reload page') ?></a>
                         <button class="ui button"><?= __('Close') ?></button>
                     </form>
                 </div>

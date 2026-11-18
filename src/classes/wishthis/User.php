@@ -501,7 +501,7 @@ class User
         unset($_SESSION);
 
         /** Delete cookie */
-        \setcookie('wishthis_session', '', time() - 3600);
+        \setcookie('wishthis_session', '', time() - 3600, BASE_PATH . '/');
     }
 
     public function delete(): void
@@ -632,7 +632,7 @@ class User
         $database->connect();
 
         /** Create cookie */
-        \setcookie('wishthis_session', $sessionId, $sessionExpires, '/');
+        \setcookie('wishthis_session', $sessionId, $sessionExpires, BASE_PATH . '/');
         $_COOKIE['wishthis_session'] = $sessionId;
 
         /** Delete outdated sessions */

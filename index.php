@@ -43,6 +43,18 @@ $configPath = __DIR__ . '/' . 'src/config/config.php';
 $config     = new Config($configPath);
 $config->load();
 
+require_once ROOT . '/src/functions/basePath.php';
+// Environment works before the installer creates config.php. Conflicting settings fail explicitly.
+$basePath = getenv('WISHTHIS_BASE_PATH');
+$basePath = wishthis_base_path($basePath !== false ? $basePath : (defined('BASE_PATH') ? BASE_PATH : ''));
+if (defined('BASE_PATH') && BASE_PATH !== $basePath) {
+    throw new \InvalidArgumentException('BASE_PATH config must be normalized and agree with WISHTHIS_BASE_PATH.');
+}
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', $basePath);
+}
+
+
 /**
  * Session
  *
@@ -53,6 +65,7 @@ $config->load();
 session_start(
     [
         'name' => 'wishthis',
+        'cookie_path' => BASE_PATH . '/',
     ]
 );
 

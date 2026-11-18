@@ -39,7 +39,7 @@ $(function() {
         var wishlistId = $('.wishlist-cards[data-wishlist]').attr('data-wishlist');
 
         fetch(
-            '/index.php?page=api&module=wishlists&id=' + wishlistId,
+            wishthis.basePath + '/index.php?page=api&module=wishlists&id=' + wishlistId,
             {
                 method      : 'GET',
                 credentials : 'include',
@@ -110,7 +110,7 @@ $(function() {
             }
         );
 
-        fetch('/index.php?page=api&module=wishlists-saved', {
+        fetch(wishthis.basePath + '/index.php?page=api&module=wishlists-saved', {
             method      : 'POST',
             credentials : 'include',
             body        : formData
@@ -134,7 +134,7 @@ $(function() {
     });
 
     /** Determine if list is saved */
-    fetch('/index.php?page=api&module=wishlists-saved', {
+    fetch(wishthis.basePath + '/index.php?page=api&module=wishlists-saved', {
         method      : 'GET',
         credentials : 'include',
     })
@@ -183,7 +183,7 @@ $(function() {
 
         buttonRequest.addClass('disabled loading');
 
-        fetch('/index.php?page=api&module=wishlists', {
+        fetch(wishthis.basePath + '/index.php?page=api&module=wishlists', {
             method      : 'POST',
             credentials : 'include',
             body        : formData

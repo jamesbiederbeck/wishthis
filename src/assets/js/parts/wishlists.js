@@ -141,7 +141,7 @@ $(function () {
         var formData   = new URLSearchParams(new FormData(formRename[0]));
         formData.append('wishlist_id', wishthis.$_GET.id);
 
-        fetch('/index.php?page=api&module=wishlists', {
+        fetch(wishthis.basePath + '/index.php?page=api&module=wishlists', {
             method      : 'PUT',
             credentials : 'include',
             body        : formData,
@@ -224,7 +224,7 @@ $(function () {
                             'wishlist_id' : wishlist_id,
                         }
                     );
-                    fetch('/index.php?page=api&module=wishlists', {
+                    fetch(wishthis.basePath + '/index.php?page=api&module=wishlists', {
                         'method'      : 'DELETE',
                         'credentials' : 'include',
                         'body'        : delete_wishlist,
@@ -332,7 +332,7 @@ $(function () {
 
                 var formData = new URLSearchParams(new FormData(formWishlistCreate[0]));
 
-                fetch('/index.php?page=api&module=wishlists', {
+                fetch(wishthis.basePath + '/index.php?page=api&module=wishlists', {
                     method      : 'POST',
                     credentials : 'include',
                     body        : formData
@@ -397,7 +397,7 @@ $(function () {
                 }
             );
 
-            fetch('/index.php?' + params_url, {
+            fetch(wishthis.basePath + '/index.php?' + params_url, {
                 method      : 'GET',
                 credentials : 'include',
             })
@@ -435,7 +435,7 @@ $(function () {
                                 }
                             );
 
-                            fetch('/index.php?page=api&module=wishes', {
+                            fetch(wishthis.basePath + '/index.php?page=api&module=wishes', {
                                 method      : 'PUT',
                                 credentials : 'include',
                                 body        : formData
@@ -472,7 +472,7 @@ $(function () {
         var formData = new URLSearchParams(new FormData(formAddOrEdit[0]));
         formData.append('wishlist_id', wishthis.$_GET.id);
 
-        fetch('/index.php?page=api&module=wishes', {
+        fetch(wishthis.basePath + '/index.php?page=api&module=wishes', {
             'method'      : 'POST',
             'credentials' : 'include',
             'body'        : formData,
@@ -502,7 +502,7 @@ $(function () {
      */
     function updateURL() {
         fetch(
-            '/index.php?page=api&module=url&url=' + window.btoa('/?' + urlParams.toString()),
+            wishthis.basePath + '/index.php?page=api&module=url&url=' + window.btoa('/?' + urlParams.toString()),
             {
                 method      : 'GET',
                 credentials : 'include',

@@ -18,7 +18,7 @@ class Wish
     public const LEFT_JOIN = '`products` ON `wishes`.`id` = `products`.`wish`';
     public const WHERE     = '`wishes`.`id` = :wish_id;';
 
-    public const NO_IMAGE = '/src/assets/img/no-image.svg';
+    public const NO_IMAGE = BASE_PATH . '/src/assets/img/no-image.svg';
 
     public const STATUS_TEMPORARY         = 'temporary';
     public const STATUS_TEMPORARY_MINUTES = 30;

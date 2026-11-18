@@ -13,6 +13,9 @@ final class PrettyUrlTest extends TestCase
     {
         \define('ROOT', \dirname(__DIR__));
 
+        \define('BASE_PATH', '');
+        require_once __DIR__ . '/../src/functions/basePath.php';
+
         $requestUris = [
             '//api/database-test',
             '/api/database-test',
