@@ -107,6 +107,9 @@ class URL
             if (count($parts) >= 2) {
                 switch ($parts[0]) {
                     case 'RewriteRule':
+                        if (($parts[2] ?? '-') === '-') {
+                            break; // Environment-only rules do not define a route.
+                        }
                         $rewriteRule = $parts[1];
                         $target      = $parts[2];
 
@@ -149,6 +152,9 @@ class URL
             if (count($parts) >= 2) {
                 switch ($parts[0]) {
                     case 'RewriteRule':
+                        if (($parts[2] ?? '-') === '-') {
+                            break; // Environment-only rules do not define a route.
+                        }
                         $rewriteRule = $parts[1];
                         $rewriteRule = ltrim($rewriteRule, '^');
                         $rewriteRule = rtrim($rewriteRule, '$');

@@ -47,6 +47,9 @@ class User
 
     public static function getCurrent(): self
     {
+        if (ApiToken::$user !== null) {
+            return ApiToken::$user;
+        }
         if (!isset($_SESSION['user'])) {
             $_SESSION['user'] = new self();
         }
@@ -255,6 +258,9 @@ class User
      */
     public function isLoggedIn(): bool
     {
+        if (ApiToken::$user === $this) {
+            return true;
+        }
         if (!isset($_COOKIE['wishthis'], $_COOKIE['wishthis_session'])) {
             return false;
         }
@@ -609,6 +615,9 @@ class User
 
     public function refreshSession(int $forUser = 0): void
     {
+        if (ApiToken::$user === $this) {
+            return; // Bearer authentication must not create a browser login cookie.
+        }
         $sessionId              = $_COOKIE['wishthis_session']
                                ?? \password_hash(\bin2hex(\random_bytes(32)), \PASSWORD_BCRYPT);
         $sessionDurationSeconds = 1440;

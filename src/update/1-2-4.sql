@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS `api_tokens` (
+    `user` INT NOT NULL PRIMARY KEY,
+    `token_hash` CHAR(64) NOT NULL UNIQUE,
+    `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT `FK_api_tokens_users` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE
+);
