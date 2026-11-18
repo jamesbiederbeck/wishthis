@@ -10,6 +10,7 @@ use wishthis\User;
 
 function redirect(string $target)
 {
+    $target = wishthis_url($target);
     $user = User::getCurrent();
 
     /**
@@ -56,7 +57,7 @@ function redirect(string $target)
         }
     }
 
-    if ($target !== $_SERVER['REQUEST_URI']) {
+    if ($target !== wishthis_url($_SERVER['REQUEST_URI'])) {
         header('Location: ' . $target);
         die();
     }

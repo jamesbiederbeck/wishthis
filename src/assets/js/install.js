@@ -9,7 +9,7 @@ $(function() {
 
         form.addClass('loading');
 
-        fetch('/index.php?page=api&module=database-test', {
+        fetch(wishthis.basePath + '/index.php?page=api&module=database-test', {
             method      : 'POST',
             credentials : 'include',
             body        : formDatabase,

@@ -94,7 +94,7 @@ $(function () {
         );
 
         fetch(
-            '/index.php?' + get_wish,
+            wishthis.basePath + '/index.php?' + get_wish,
             {
                 method      : 'GET',
                 credentials : 'include',
@@ -160,7 +160,7 @@ $(function () {
 
         $(this).addClass('disabled loading');
 
-        fetch('/index.php?page=api&module=wishes', mark_as_fulfilled)
+        fetch(wishthis.basePath + '/index.php?page=api&module=wishes', mark_as_fulfilled)
         .then(handleFetchError)
         .then(handleFetchResponse)
         .then(function(response) {
@@ -191,7 +191,7 @@ $(function () {
 
         $(this).addClass('disabled loading');
 
-        fetch('/index.php?page=api&module=wishes', mark_as_fulfilled)
+        fetch(wishthis.basePath + '/index.php?page=api&module=wishes', mark_as_fulfilled)
         .then(handleFetchError)
         .then(handleFetchResponse)
         .then(function(response) {
@@ -277,7 +277,7 @@ $(function () {
 
             input.attr('disabled', 'disabled');
 
-            fetch('/index.php?page=api&module=wishes&wish_url=' + window.btoa(input.val()) + '&isAffiliate', {
+            fetch(wishthis.basePath + '/index.php?page=api&module=wishes&wish_url=' + window.btoa(input.val()) + '&isAffiliate', {
                 'method'      : 'GET',
                 'credentials' : 'include',
             })
@@ -320,7 +320,7 @@ $(function () {
                 )
             );
 
-            fetch('/index.php?page=api&module=wishes', {
+            fetch(wishthis.basePath + '/index.php?page=api&module=wishes', {
                 'method'      : 'POST',
                 'credentials' : 'include',
                 'body'        : wish_data,
@@ -379,7 +379,7 @@ $(function () {
                     'wish_id' : wish_local.id
                 });
 
-                fetch('/index.php?page=api&module=wishes', {
+                fetch(wishthis.basePath + '/index.php?page=api&module=wishes', {
                     'method'      : 'DELETE',
                     'credentials' : 'include',
                     'body'        : wish_delete,

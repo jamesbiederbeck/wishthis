@@ -41,7 +41,7 @@ Note: You will have to manually update wishthis by replacing all files with the 
 
 ### Note
 
-Make sure wishthis is setup via a domain directly and not running inside a sub-folder.
+wishthis can run at a domain root or behind a reverse proxy at a configured URL prefix. See [subfolder deployment](wiki/subfolder-deployment.md).
 
 ## :trophy: Contributing
 

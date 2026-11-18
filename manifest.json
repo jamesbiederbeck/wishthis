@@ -11,27 +11,27 @@
     "theme_color": "#5829bb",
     "display": "standalone",
     "orientation": "any",
-    "scope": "/",
-    "start_url": "/",
+    "scope": "./",
+    "start_url": "./",
     "screenshots": [],
     "icons": [
         {
-            "src": "/src/assets/img/logo-square.svg",
+            "src": "src/assets/img/logo-square.svg",
             "sizes": "any",
             "purpose": "any"
         },
         {
-            "src": "/src/assets/img/logo-square.svg",
+            "src": "src/assets/img/logo-square.svg",
             "sizes": "any",
             "purpose": "maskable"
         },
         {
-            "src": "/src/assets/img/logo-square.png",
+            "src": "src/assets/img/logo-square.png",
             "sizes": "any",
             "purpose": "any"
         },
         {
-            "src": "/src/assets/img/logo-square.png",
+            "src": "src/assets/img/logo-square.png",
             "sizes": "any",
             "purpose": "maskable"
         }
@@ -40,7 +40,7 @@
     "lang": "en",
     "dir": "rtl",
     "share_target": {
-        "action": "/?page=wishlists",
+        "action": "./?page=wishlists",
         "method": "GET",
         "params": {
             "title": "title",

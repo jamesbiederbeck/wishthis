@@ -60,7 +60,7 @@ class URL
      */
     public function __construct(string $url)
     {
-        $this->url = urldecode($url);
+        $this->url = \wishthis_internal_path(urldecode($url));
         $this->url = str_replace('index.php', '', $this->url);
 
         while (\str_contains($this->url, '//')) {
@@ -190,7 +190,7 @@ class URL
                         );
 
                         if (1 === $match && count($_GET) === count(explode('/', $rewriteRule))) {
-                            return '/' . $potential_url;
+                            return \wishthis_url('/' . $potential_url);
                         }
                         break;
                 }
@@ -198,10 +198,10 @@ class URL
         }
 
         if ('/?' === substr($this->url, 0, 2)) {
-            return $this->url;
+            return \wishthis_url($this->url);
         }
 
-        return '/?' . $this->url;
+        return \wishthis_url('/?' . $this->url);
     }
 
     /**

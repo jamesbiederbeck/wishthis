@@ -11,6 +11,7 @@ global $options;
 
 <script type="text/javascript">
     var wishthis = {};
+    wishthis.basePath = <?= \json_encode(BASE_PATH, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
 
     /** General */
     wishthis.version = '<?= VERSION ?>';
