@@ -275,6 +275,7 @@ switch ($step) {
         $currencyFormatter = new \NumberFormatter(DEFAULT_LOCALE, \NumberFormatter::CURRENCY);
         $currencyISO       = $currencyFormatter->getSymbol(\NumberFormatter::INTL_CURRENCY_SYMBOL);
 
+        $database->query('DROP TABLE IF EXISTS `api_tokens`;');
         $database->query('DROP TABLE IF EXISTS `users`;');
         $database->query(
             'CREATE TABLE `users` (
@@ -401,6 +402,8 @@ switch ($step) {
                 CONSTRAINT `FK_sessions_users` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE
             );'
         );
+
+        $database->query(file_get_contents(ROOT . '/src/update/1-2-4.sql'));
 
         $database->query('SET foreign_key_checks = 1;');
         ?>

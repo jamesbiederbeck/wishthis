@@ -13,6 +13,13 @@ $user = User::getCurrent();
 
 require __DIR__  . '/profile-handle-post.php';
 
+// Display freshly generated secrets once, without storing them in the database.
+$newApiToken = $_SESSION['api_token_new'] ?? null;
+unset($_SESSION['api_token_new']);
+$_SESSION['api_token_csrf'] = $_SESSION['api_token_csrf'] ?? bin2hex(random_bytes(32));
+$hasApiToken = ApiToken::exists($user->getId());
+header('Cache-Control: no-store');
+
 $page->header();
 $page->bodyStart();
 $page->navigation();
@@ -385,6 +392,31 @@ $page->navigation();
 
                 <div class="ui tab" data-tab="account">
                     <h2 class="ui header"><?= __('Account') ?></h2>
+
+                    <div class="ui segment">
+                        <h3 class="ui header"><?= __('API token') ?></h3>
+                        <p><?= __('Allow an agent to list your wishlists and add wishes to lists you own. This token cannot edit or delete wishes or change your account.') ?></p>
+                        <?php if ($newApiToken !== null) { ?>
+                            <div class="ui warning message"><?= __('Copy this token now. It will not be shown again.') ?></div>
+                            <div class="ui form"><div class="field">
+                                <label for="api-token-secret"><?= __('New API token') ?></label>
+                                <input id="api-token-secret" type="text" readonly autocomplete="off" spellcheck="false"
+                                       value="<?= htmlspecialchars($newApiToken, ENT_QUOTES, 'UTF-8') ?>" />
+                            </div></div>
+                        <?php } ?>
+                        <p><?= $hasApiToken ? __('An API token is active.') : __('No API token is active.') ?></p>
+                        <p><?= __('Send it in the Authorization header as Bearer TOKEN. Generating a new token immediately invalidates the old one.') ?></p>
+                        <form class="ui form" method="POST">
+                            <input type="hidden" name="section" value="account" />
+                            <input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['api_token_csrf'], ENT_QUOTES, 'UTF-8') ?>" />
+                            <button class="ui primary button" type="submit" name="api-token-action" value="generate">
+                                <?= $hasApiToken ? __('Regenerate token') : __('Generate token') ?>
+                            </button>
+                            <?php if ($hasApiToken) { ?>
+                                <button class="ui button" type="submit" name="api-token-action" value="revoke"><?= __('Revoke token') ?></button>
+                            <?php } ?>
+                        </form>
+                    </div>
 
                     <div class="ui segment">
                         <form class="ui form" method="POST">

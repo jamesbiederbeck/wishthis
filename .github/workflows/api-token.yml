@@ -1,0 +1,33 @@
+name: API token regression tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  tokens:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1', '8.2', '8.3']
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: test-only
+          MARIADB_DATABASE: token_test
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl, mbstring, pdo_mysql, pdo_sqlite
+          coverage: none
+      - run: php tests/api-token.php
+      - run: php tests/api-token.php
+        env:
+          TOKEN_TEST_DSN: mysql:host=127.0.0.1;port=3306;dbname=token_test
+          TOKEN_TEST_USER: root
+          TOKEN_TEST_PASSWORD: test-only

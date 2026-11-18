@@ -1,5 +1,8 @@
 $(function() {
     $('.menu.profile .item').tab();
+    if (urlParams.get('section') === 'account') {
+        $('.menu.profile .item').tab('change tab', 'account');
+    }
 
     /**
      * Personal
